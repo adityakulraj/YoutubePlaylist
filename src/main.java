@@ -21,9 +21,9 @@ public class main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner scan = new Scanner(System.in);
         System.out.println("*****CREATED BY AVINASH DHILLOR*****");
-        System.out.println("NOTE:If you want to Downlaod full Playlist \n then starting point will be 0 and \n end point will also be 0 \n(E.g. PlayListlink 0 0)\n or\nIf you want a particular range then \n (E.g. PlayListlink 2 19)");
+        System.out.println("NOTE:If you want to Downlaod full Playlist \n     then START point will be 0 and \n     END point will also be 0 \n(E.g. PlayListlink 0 0)\n             OR\nIf you want a particular range then \n(E.g. PlayListlink 2 19)");
         System.out.println("\n");
-        System.out.println("Enter Youtube Playlist Link followed by STARTING POINT and END POINT:");
+        System.out.println("Enter Youtube Playlist Link followed by START POINT and END POINT:");
         String inputlink = scan.next();
         int start = scan.nextInt();
         int end = scan.nextInt();
@@ -60,22 +60,36 @@ public class main {
                     Thread.sleep(1500);
                     w.findElement(By.className("def-btn-box")).click();
                 }
+                Thread.sleep(3000);
+                w.get(Currentdir+ "\\html\\complete.html");
+                System.out.println("Completed!");
 
             } catch (Exception ex) {
+                Thread.sleep(3000);
+                w.get(Currentdir+ "\\html\\error.html");
                 System.out.println("Failed! Your internet Connection must be slow");
 
             }
         }
         else {
-            for (int i = start ; i <= end; i++) {
-                String download1 = vector.elementAt(i-1);
-                w.get("Http://en.savefrom.net");
-                Thread.sleep(900);
-                w.findElement(By.id("sf_url")).sendKeys(download1);
-                Thread.sleep(1500);
-                w.findElement(By.id("sf_submit")).click();
-                Thread.sleep(1500);
-                w.findElement(By.className("def-btn-box")).click();
+            try {
+                for (int i = start; i <= end; i++) {
+                    String download1 = vector.elementAt(i - 1);
+                    w.get("Http://en.savefrom.net");
+                    Thread.sleep(1500);
+                    w.findElement(By.id("sf_url")).sendKeys(download1);
+                    Thread.sleep(1500);
+                    w.findElement(By.id("sf_submit")).click();
+                    Thread.sleep(1500);
+                    w.findElement(By.className("def-btn-box")).click();
+                }
+                Thread.sleep(3000);
+                w.get(Currentdir + "\\html\\complete.html");
+                System.out.println("Completed!");
+            } catch (Exception e ) {
+                Thread.sleep(3000);
+                w.get(Currentdir+ "\\html\\error.html");
+                System.out.println("Failed! Your internet Connection must be slow");
             }
         }
     }
