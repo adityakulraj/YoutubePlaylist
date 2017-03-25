@@ -60,12 +60,12 @@ public class main {
                     Thread.sleep(1500);
                     w.findElement(By.className("def-btn-box")).click();
                 }
-                Thread.sleep(3000);
+                Thread.sleep(7000);
                 w.get(Currentdir+ "\\html\\complete.html");
                 System.out.println("Completed!");
 
             } catch (Exception ex) {
-                Thread.sleep(3000);
+                Thread.sleep(7000);
                 w.get(Currentdir+ "\\html\\error.html");
                 System.out.println("Failed! Your internet Connection must be slow");
 
@@ -83,11 +83,11 @@ public class main {
                     Thread.sleep(1500);
                     w.findElement(By.className("def-btn-box")).click();
                 }
-                Thread.sleep(3000);
+                Thread.sleep(7000);
                 w.get(Currentdir + "\\html\\complete.html");
                 System.out.println("Completed!");
             } catch (Exception e ) {
-                Thread.sleep(3000);
+                Thread.sleep(7000);
                 w.get(Currentdir+ "\\html\\error.html");
                 System.out.println("Failed! Your internet Connection must be slow");
             }
