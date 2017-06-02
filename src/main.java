@@ -21,19 +21,23 @@ public class main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner scan = new Scanner(System.in);
         System.out.println("*****CREATED BY AVINASH DHILLOR*****");
-        System.out.println("NOTE:If you want to Downlaod full Playlist \n     then START point will be 0 and \n     END point will also be 0 \n(E.g. PlayListlink 0 0)\n             OR\nIf you want a particular range then \n(E.g. PlayListlink 2 19)");
+        System.out.println("NOTE:If you want to Download full Playlist \n     then START point will be 0 and \n     END point will also be 0 \n(E.g. PlayListlink 0 0)\n             OR\nIf you want a particular range then \n(E.g. PlayListlink 2 19)");
         System.out.println("\n");
         System.out.println("Enter Youtube Playlist Link followed by START POINT and END POINT:");
         String inputlink = scan.next();
         int start = scan.nextInt();
         int end = scan.nextInt();
+        System.out.println("Chrome setting will be opened then select download location in chrome \nbrowser within 30 seconds and wait");
+        Thread.sleep(3000);
         System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\drive\\chromedriver.exe" );
 
         WebDriver w = new ChromeDriver();
 
         Vector<String> vector = new Vector<String>();
 
-        w.get(inputlink);
+            w.get("chrome://settings/");
+            Thread.sleep(30000);
+            w.get(inputlink);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(Filename, false))) {
             bw.write(w.getPageSource());
         }
@@ -59,6 +63,8 @@ public class main {
                     w.findElement(By.id("sf_submit")).click();
                     Thread.sleep(1500);
                     w.findElement(By.className("def-btn-box")).click();
+                    start++;
+                    System.out.print("\rDownloading video number :" + start);
                 }
                 Thread.sleep(7000);
                 w.get(Currentdir+ "\\html\\complete.html");
@@ -67,11 +73,12 @@ public class main {
             } catch (Exception ex) {
                 Thread.sleep(7000);
                 w.get(Currentdir+ "\\html\\error.html");
-                System.out.println("Failed! Your internet Connection must be slow");
-
+                System.out.println("\nFailed after"+ start + "video! Your internet Connection must be slow");
+                Thread.sleep(10000);
             }
         }
         else {
+            int number = 0;
             try {
                 for (int i = start; i <= end; i++) {
                     String download1 = vector.elementAt(i - 1);
@@ -82,6 +89,8 @@ public class main {
                     w.findElement(By.id("sf_submit")).click();
                     Thread.sleep(1500);
                     w.findElement(By.className("def-btn-box")).click();
+                    number = i;
+                    System.out.print("\rDownloading video number :" + i);
                 }
                 Thread.sleep(7000);
                 w.get(Currentdir + "\\html\\complete.html");
@@ -89,7 +98,9 @@ public class main {
             } catch (Exception e ) {
                 Thread.sleep(7000);
                 w.get(Currentdir+ "\\html\\error.html");
-                System.out.println("Failed! Your internet Connection must be slow");
+                System.out.println("\nFailed after"+ number + "video! Your internet Connection must be slow");
+
+                Thread.sleep(10000);
             }
         }
     }
